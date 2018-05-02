@@ -50,6 +50,10 @@ pause;
 fprintf('Normalizing Features ...\n');
 
 [X mu sigma] = featureNormalize(X);
+% fprintf('First 10 examples from the normalized features: \n');
+% fprintf(' x = [%.10f %.10f], y = %.0f \n', [X(1:10,:) y(1:10,:)]');
+% disp(mu)
+% disp(sigma)
 
 % Add intercept term to X
 X = [ones(m, 1) X];
@@ -82,16 +86,24 @@ X = [ones(m, 1) X];
 fprintf('Running gradient descent ...\n');
 
 % Choose some alpha value
-alpha = 0.01;
 num_iters = 400;
 
 % Init Theta and Run Gradient Descent 
 theta = zeros(3, 1);
-[theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
+[theta, J_history1] = gradientDescentMulti(X, y, theta, 1.0, num_iters);
+
+theta = zeros(3, 1);
+[theta, J_history2] = gradientDescentMulti(X, y, theta, 0.1, num_iters);
+
+theta = zeros(3, 1);
+[theta, J_history3] = gradientDescentMulti(X, y, theta, 0.01, num_iters);
 
 % Plot the convergence graph
 figure;
-plot(1:numel(J_history), J_history, '-b', 'LineWidth', 2);
+plot(1:numel(J_history1), J_history1, '-b', 'LineWidth', 2);
+hold on;
+plot(1:numel(J_history2), J_history2, '-r', 'LineWidth', 2);
+plot(1:numel(J_history3), J_history3, '-k', 'LineWidth', 2);
 xlabel('Number of iterations');
 ylabel('Cost J');
 
