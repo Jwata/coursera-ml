@@ -11,19 +11,13 @@ figure; hold on;
 %               2D plot, using the option 'k+' for the positive
 %               examples and 'ko' for the negative examples.
 %
+positives = find(y==1);
+negatives = find(y==0);
 
-
-
-
-
-
-
-
+plot(X(positives, 1), X(positives, 2), 'k+');
+plot(X(negatives, 1), X(negatives, 2), 'ko', 'MarkerFaceColor', 'y');
 
 % =========================================================================
-
-
-
 hold off;
 
 end
