@@ -62,30 +62,30 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 % -------------------------------------------------------------
+
+for i = 1:m,
+  a1 = [1 X(i, :)];
+  z2 = a1 * Theta1';
+  a2 = [1 sigmoid(z2)];
+  z3 =  a2 * Theta2';
+  a3 = sigmoid(z3);
+
+  yi = zeros(num_labels, 1);
+  yi(y(i)) = 1;
+  for k=1:num_labels,
+    yi_k = yi(k);
+    h = a3(k);
+    j = - yi_k*log(h) - (1-yi_k)*log(1-h);
+    J = J + j;
+  endfor
+endfor
+
+J = J/m;
 
 % =========================================================================
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
-
 
 end
