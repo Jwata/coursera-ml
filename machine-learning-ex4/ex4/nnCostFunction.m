@@ -81,7 +81,11 @@ for i = 1:m,
   endfor
 endfor
 
-J = J/m;
+rj = 0;
+rj = rj + sum(Theta1(:, 2:input_layer_size+1)(:).^2);
+rj = rj + sum(Theta2(:, 2:hidden_layer_size+1)(:).^2);
+
+J = J/m + rj*lambda / (2*m);
 
 % =========================================================================
 
